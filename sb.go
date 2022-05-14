@@ -21,7 +21,7 @@ var saloon = make(chan int, saloonCapacity)
 
 // Work simulation for output observability
 func sleep() {
-	time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
+	time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
 }
 
 // Barber function
@@ -31,14 +31,12 @@ func barber(id int) {
 	for client := range saloon {
 		fmt.Printf("Barber%d: cuts Client%d\n", id, client)
 		sleep()
-		sleep()
 	}
 }
 
 // Client function
 func client(id int) {
 	defer cWg.Done()
-	sleep()
 
 	select {
 	case saloon <- id:
